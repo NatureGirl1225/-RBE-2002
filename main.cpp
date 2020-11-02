@@ -2,12 +2,7 @@
 #include <Romi32U4.h>
 #include "chassis.h"
 
-RomiChassis chassis;
-
-enum ROBOT_STATE {ROBOT_IDLE, ROBOT_DRIVING};
 ROBOT_STATE robot_state = ROBOT_IDLE;
-
-Romi32U4ButtonA buttonA;
 
 void setup() {
     Serial.begin(115200);

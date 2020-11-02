@@ -49,8 +49,14 @@ class RomiChassis{
         void StartDriving(float, float, uint32_t);
         bool CheckDriveComplete(void);
         void Stop(void);
+        
 };
 
 extern RomiChassis chassis;
+
+enum ROBOT_STATE {ROBOT_IDLE, ROBOT_DRIVING};
+
+
+extern Romi32U4ButtonA buttonA;
 
 #endif
