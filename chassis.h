@@ -33,6 +33,8 @@ class RomiChassis{
         int prev_count_left = 0;
         int prev_count_right = 0;
         float previous_time = 0;
+        /*float sum_error_left = 0;
+        float sum_error_right = 0;*/
 
 
     public:
@@ -49,14 +51,8 @@ class RomiChassis{
         void StartDriving(float, float, uint32_t);
         bool CheckDriveComplete(void);
         void Stop(void);
-        
 };
 
 extern RomiChassis chassis;
-
-enum ROBOT_STATE {ROBOT_IDLE, ROBOT_DRIVING};
-
-
-extern Romi32U4ButtonA buttonA;
 
 #endif

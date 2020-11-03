@@ -1,5 +1,10 @@
+//#include <wpi-32u4-library.h>
 #include <Romi32U4.h>
+#include <Arduino.h>
 #include "chassis.h"
+#include "main.cpp"
+
+Romi32U4Motors motors; 
 
 float RomiChassis::SpeedLeft(void)
 {
@@ -17,7 +22,7 @@ float RomiChassis::SpeedRight(void)
 
 void RomiChassis::UpdateEffortDriveWheels(int left, int right)
 { 
-    motors.setEfforts(left,right);
+    motors.setEfforts(left,right); 
 }
 
 void RomiChassis::UpdateEffortDriveWheelsPI(int target_speed_left, int target_speed_right)
@@ -42,17 +47,18 @@ prev_sum_error_right = sum_error_right;
   }
 }
 
-void RomiChassis::SerialPlotter(float a, float b, float c, float d)
+void RomiChassis::SerialPlotter(float sum_error_left, float sum_error_right, float prev_sum_error_left, float prev_sum_error_right)
 {
     // !!! ATTENTION !!!
     // USE this function for assignment 3!
-    Serial.print(a);
+
+    Serial.print(sum_error_left);
     Serial.print('\t');
-    Serial.print(b);
+    Serial.print(sum_error_right);
     Serial.print('\t');
-    Serial.print(c);
+    Serial.print(prev_sum_error_left);
     Serial.print('\t');
-    Serial.print(d);
+    Serial.print(prev_sum_error_right);
     Serial.println();
 }
 
