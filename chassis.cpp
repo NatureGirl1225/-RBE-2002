@@ -37,10 +37,8 @@ void RomiChassis::UpdateEffortDriveWheelsPI(int target_speed_left, int target_sp
   // Assignment 2
   float prev_sum_error_left = 0;
   float prev_sum_error_right = 0;
-  float start_time = millis();
-  float end_time = start_time + 10000;
-  
-  if(millis()>end_time){
+
+  if(!CheckDriveComplete()){
  E_left =  target_speed_left - SpeedLeft();
  sum_error_left = prev_sum_error_left + E_left;
  //The current error is now the previous sum of error. 
