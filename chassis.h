@@ -16,8 +16,8 @@ class RomiChassis{
         float target_right = 0;
         float Kp = 0.3;
         float Ki = 0.1;
-        float E_left = 0; //accumulated errors
-        float E_right = 0;
+        
+
 
         //encoder and motor objects
         Romi32U4Encoders encoders;
@@ -33,26 +33,33 @@ class RomiChassis{
         int prev_count_left = 0;
         int prev_count_right = 0;
         float previous_time = 0;
-        /*float sum_error_left = 0;
-        float sum_error_right = 0;*/
+        float sum_error_left = 0;
+        float sum_error_right = 0;
+        
 
 
     public:
         float SpeedLeft(void);
         float SpeedRight(void);
+        float u_left;
+        float u_right;
+        float E_left = 0; //accumulated error
+        float E_right = 0;
 
         void UpdateEffortDriveWheels(int a, int b);
         void UpdateEffortDriveWheelsP(int a, int b);
         void UpdateEffortDriveWheelsPI(int a, int b);
 
         void MotorControl(void);
-        void SerialPlotter(float a, float b, float c, float d);
+        void SerialPlotter(float a, float b, float c, float d, float e, float f);
 
         void StartDriving(float, float, uint32_t);
         bool CheckDriveComplete(void);
         void Stop(void);
+
+        bool Timer(float);
+
 };
 
-extern RomiChassis chassis;
-
+enum ROBOT_STATE {ROBOT_IDLE, ROBOT_DRIVING};
 #endif

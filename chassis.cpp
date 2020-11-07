@@ -2,7 +2,6 @@
 #include <Romi32U4.h>
 #include <Arduino.h>
 #include "chassis.h"
-#include "main.cpp"
 
 Romi32U4Motors motors; 
 
@@ -19,7 +18,13 @@ float RomiChassis::SpeedRight(void)
     // Assignment 1
     return ((count_right-prev_count_right)*C_wheel)/(N_wheel*1000*interval); //[mm/s]
 }
-
+/*bool RomiChassis::Timer(float timer_length){
+  float start_time = millis();
+  float end_time = millis() + timer_length;
+  if(millis()>end_time){
+  return true;
+  }
+}*/
 void RomiChassis::UpdateEffortDriveWheels(int left, int right)
 { 
     motors.setEfforts(left,right); 
@@ -27,38 +32,46 @@ void RomiChassis::UpdateEffortDriveWheels(int left, int right)
 
 void RomiChassis::UpdateEffortDriveWheelsPI(int target_speed_left, int target_speed_right)
 {
+  
   // !!! ATTENTION !!!
   // Assignment 2
-  {
-while(robot_state == ROBOT_DRIVING){
   float prev_sum_error_left = 0;
   float prev_sum_error_right = 0;
- float E_left =  target_speed_left - SpeedLeft();
- float sum_error_left = prev_sum_error_left + E_left;
+  float start_time = millis();
+  float end_time = start_time + 10000;
+  
+  if(millis()>end_time){
+ E_left =  target_speed_left - SpeedLeft();
+ sum_error_left = prev_sum_error_left + E_left;
  //The current error is now the previous sum of error. 
-    float u_left = Kp*E_left + Ki*sum_error_left;
-    float E_right =  target_speed_right - SpeedRight();
- float sum_error_right = prev_sum_error_right + E_right;
-    float u_right = Kp*E_right + Ki*sum_error_right;
-    motors.setEfforts(u_left,u_right);
+    u_left = Kp*E_left + Ki*sum_error_left;
+    E_right =  target_speed_right - SpeedRight();
+    sum_error_right = prev_sum_error_right + E_right;
+    u_right = Kp*E_right + Ki*sum_error_right;
+    motors.setEfforts(u_left, u_right);
 prev_sum_error_left = sum_error_left;
 prev_sum_error_right = sum_error_right;
-  }
+
   }
 }
 
-void RomiChassis::SerialPlotter(float sum_error_left, float sum_error_right, float prev_sum_error_left, float prev_sum_error_right)
+void RomiChassis::SerialPlotter(float SpeedLeft, float SpeedRight, float E_left, float E_right, float u_left, float u_right)
 {
     // !!! ATTENTION !!!
     // USE this function for assignment 3!
 
-    Serial.print(sum_error_left);
+    Serial.print(SpeedLeft);
     Serial.print('\t');
-    Serial.print(sum_error_right);
+    Serial.print(SpeedRight);
     Serial.print('\t');
-    Serial.print(prev_sum_error_left);
+    Serial.print(E_left);
     Serial.print('\t');
-    Serial.print(prev_sum_error_right);
+    Serial.print(E_right);
+    Serial.print('\t');
+    Serial.print(u_left);
+    Serial.print('\t');
+    Serial.print(u_right);
+    Serial.print('\t');
     Serial.println();
 }
 
@@ -83,8 +96,7 @@ void RomiChassis::StartDriving(float left, float right, uint32_t duration)
   start_time = millis();
   last_update = start_time;
   end_time = start_time + duration; //fails at rollover
-  E_left = 0;
-  E_right = 0;
+  UpdateEffortDriveWheelsPI(10, 10);
 }
 
 bool RomiChassis::CheckDriveComplete(void)
