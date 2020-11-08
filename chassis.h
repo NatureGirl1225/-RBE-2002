@@ -9,7 +9,7 @@ class RomiChassis{
         // !!! ATTENTION !!!
         const float N_wheel = 1440; //how many counts equate to one wheel rotation?
         const float R_wheel = 35; //what is the radius of a Romi wheel in [mm]
-        const float C_wheel = 2*PI*R_wheel; //circumference of wheel
+        const float C_wheel = 2*M_PI*R_wheel; //circumference of wheel
 
         //declare variables for PI controller
         float target_left = 0;
@@ -26,7 +26,7 @@ class RomiChassis{
         //declare variables for keeping track of counts and conversion to velocities
         uint32_t start_time = 0;
         uint32_t end_time = 0;
-        float interval = 50; // in [ms]
+        float interval = 100; // in [ms]
         uint32_t last_update = 0;
         int count_left = 0;
         int count_right = 0;
@@ -35,7 +35,8 @@ class RomiChassis{
         float previous_time = 0;
         float sum_error_left = 0;
         float sum_error_right = 0;
-        
+        float prev_sum_error_left = 0;
+        float prev_sum_error_right = 0;
 
 
     public:
@@ -46,6 +47,7 @@ class RomiChassis{
         float E_left = 0; //accumulated error
         float E_right = 0;
 
+        uint32_t now = 0; 
         void UpdateEffortDriveWheels(int a, int b);
         void UpdateEffortDriveWheelsP(int a, int b);
         void UpdateEffortDriveWheelsPI(int a, int b);
