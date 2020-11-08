@@ -16,7 +16,7 @@ void loop()
 {
   float speed_left = chassis.SpeedLeft();
   float speed_right = chassis.SpeedRight();
-  //chassis.SerialPlotter(speed_left, speed_right, chassis.E_left, chassis.E_right, chassis.u_left, chassis.u_right);
+  chassis.SerialPlotter(speed_left, speed_right, chassis.E_left, chassis.E_right, chassis.u_left, chassis.u_right);
   //Serial.println(robot_state);
   switch(robot_state)
   {
