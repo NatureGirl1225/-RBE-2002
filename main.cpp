@@ -16,7 +16,8 @@ void loop()
 {
   float speed_left = chassis.SpeedLeft();
   float speed_right = chassis.SpeedRight();
-  chassis.SerialPlotter(chassis.u_left, chassis.u_right, chassis.E_left, chassis.E_right, speed_left, speed_right);
+  //chassis.SerialPlotter(speed_left, speed_right, chassis.E_left, chassis.E_right, chassis.u_left, chassis.u_right);
+  //Serial.println(robot_state);
   switch(robot_state)
   {
     case ROBOT_IDLE:
@@ -24,7 +25,6 @@ void loop()
       {
         chassis.StartDriving(100, 100, 10000); //contains your program that the robot executes when pushbutton A is pressed
         robot_state = ROBOT_DRIVING;
-        Serial.println("pls work");
       }
       break;
 
@@ -40,5 +40,8 @@ void loop()
         chassis.Stop();
         robot_state = ROBOT_IDLE;
       }
+      /*if(!chassis.CheckDriveComplete()){
+        chassis.UpdateEffortDriveWheelsPI(10,10);
+      }*/
   }
 }

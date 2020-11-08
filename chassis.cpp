@@ -9,7 +9,9 @@ float RomiChassis::SpeedLeft(void)
 {
     // !!! ATTENTION !!!
     // Assignment 1
+    Serial.println(count_left-prev_count_left);
     return((count_left-prev_count_left)*C_wheel)/(N_wheel*1000*interval); //[mm/s]
+    
 }
 
 float RomiChassis::SpeedRight(void)
@@ -35,20 +37,28 @@ void RomiChassis::UpdateEffortDriveWheelsPI(int target_left, int target_right)
   
   // !!! ATTENTION !!!
   // Assignment 2
-  float prev_sum_error_left = 0;
-  float prev_sum_error_right = 0;
+
 
   if(!CheckDriveComplete()){
+    count_left = encoders.getCountsLeft();
+    count_right = encoders.getCountsRight();
+    //Serial.println(count_left);
  E_left =  target_left - SpeedLeft();
+ //Serial.println(E_left);
  sum_error_left = prev_sum_error_left + E_left;
+ //Serial.println(sum_error_left);
  //The current error is now the previous sum of error. 
     u_left = Kp*E_left + Ki*sum_error_left;
+   // Serial.println(u_left);
     E_right =  target_right - SpeedRight();
     sum_error_right = prev_sum_error_right + E_right;
     u_right = Kp*E_right + Ki*sum_error_right;
     motors.setEfforts(u_left, u_right);
 prev_sum_error_left = sum_error_left;
 prev_sum_error_right = sum_error_right;
+prev_count_left = count_left;
+//Serial.println(prev_count_left);
+prev_count_right = count_right;
   }
 }
 
@@ -82,7 +92,7 @@ void RomiChassis::MotorControl(void)
     count_left = encoders.getCountsLeft();
     count_right = encoders.getCountsRight();
     previous_time = millis();
-    UpdateEffortDriveWheels(u_left, u_right);
+    UpdateEffortDriveWheelsPI(u_left, u_right);
     last_update = now;
   }
 }
@@ -94,7 +104,7 @@ void RomiChassis::StartDriving(float left, float right, uint32_t duration)
   start_time = millis();
   last_update = start_time;
   end_time = start_time + duration; //fails at rollover
-  UpdateEffortDriveWheelsPI(10, 10);
+  UpdateEffortDriveWheelsPI(target_left, target_right);
 }
 
 bool RomiChassis::CheckDriveComplete(void)

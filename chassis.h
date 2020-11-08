@@ -26,7 +26,7 @@ class RomiChassis{
         //declare variables for keeping track of counts and conversion to velocities
         uint32_t start_time = 0;
         uint32_t end_time = 0;
-        float interval = 50; // in [ms]
+        float interval = 100; // in [ms]
         uint32_t last_update = 0;
         int count_left = 0;
         int count_right = 0;
@@ -35,7 +35,8 @@ class RomiChassis{
         float previous_time = 0;
         float sum_error_left = 0;
         float sum_error_right = 0;
-        
+        float prev_sum_error_left = 0;
+        float prev_sum_error_right = 0;
 
 
     public:
