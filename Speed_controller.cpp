@@ -28,9 +28,9 @@ void SpeedController::Process(float target_velocity_left, float target_velocity_
         Serial.print('\t');
         Serial.println(MagneticEncoder.ReadVelocityRight());
     }
-}
+} 
 
 void SpeedController::Stop()
 {
     motors.setEfforts(0,0);
-}
+}   

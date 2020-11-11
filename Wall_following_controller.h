@@ -15,6 +15,6 @@ class WallFollowingController{
     public:
         void Init(void);
         float Process(float);
-};
+}; 
 
 #endif

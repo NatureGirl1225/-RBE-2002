@@ -10,6 +10,8 @@ class IRsensor{
         void Init(void);
         float ReadData(void);
         float PrintData(void);
-};
+        
+        float distance;
+}; 
 
 #endif
