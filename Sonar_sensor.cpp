@@ -16,5 +16,13 @@ float SonarSensor::ReadData(void)
 {
     //assignment 1.2
     //read out and calibrate your sonar sensor, to convert readouts to distance in [cm]
+    float getDistanceSonar(){
+        digitalWrite(pin_TRIG, HIGH);
+        delayMicroseconds(10);
+        digitalWrite(pin_TRIG, LOW);
+        float duration = pulseIn(pin_ECHO, HIGH);
+        return duration;
+    }
+    
     return 0;
-}
+} 

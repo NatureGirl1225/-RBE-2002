@@ -14,6 +14,6 @@ class SpeedController{
         void Init(void);
         void Process(float, float);
         void Stop(void);
-};
+}; 
 
 #endif

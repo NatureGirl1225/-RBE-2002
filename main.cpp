@@ -14,12 +14,11 @@ ROBOT_STATE robot_state = ROBOT_IDLE;
 Romi32U4ButtonA buttonA; 
 SpeedController PIcontroller;
 WallFollowingController PDcontroller;
-IRsensor irSensor;
 
 void setup() {
   PIcontroller.Init();
   PDcontroller.Init();
-}
+} 
 
 void loop() {
   switch(robot_state)
@@ -30,8 +29,7 @@ void loop() {
 
     case ROBOT_DRIVING:
       //uncomment this line to check whether the speed controller is operational on your robot
-      PIcontroller.Process(50,50);
-      irSensor.PrintData();
+      //PIcontroller.Process(50,50);
 
       //uncomment this line of code, once you are done with assignments 1 and 2 to demonstrate that your robot
       //is capable of following a wall autonomously.

@@ -17,4 +17,4 @@ float WallFollowingController::Process(float target_distance)
   //assignment 2: write a PD controller that outputs speed as a function of distance error
   float speed = 0;
   return speed;
-}
+} 
