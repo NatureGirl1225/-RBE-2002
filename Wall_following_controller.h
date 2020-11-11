@@ -11,10 +11,11 @@ class WallFollowingController{
         float E_right = 0;
         float E_distance = 0;
         float prev_e_distance = 0;
+        float distance;
 
     public:
         void Init(void);
-        float Process(float);
-};
+        float Process(float, float);
+}; 
 
 #endif

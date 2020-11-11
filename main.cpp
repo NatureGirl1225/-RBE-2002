@@ -8,21 +8,24 @@
 #include "Speed_controller.h"
 #include "Wall_following_controller.h"
 
+
 enum ROBOT_STATE {ROBOT_IDLE, ROBOT_DRIVING};
 ROBOT_STATE robot_state = ROBOT_IDLE;
 
 Romi32U4ButtonA buttonA; 
 SpeedController PIcontroller;
 WallFollowingController PDcontroller;
-IRsensor irSensor;
+IRsensor sharpIR;
+
+//SonarSensor ultrasonic;
 
 void setup() {
   PIcontroller.Init();
   PDcontroller.Init();
-}
+} 
 
 void loop() {
-  switch(robot_state)
+ switch(robot_state)
   {
     case ROBOT_IDLE:
       if(buttonA.getSingleDebouncedRelease()) robot_state = ROBOT_DRIVING;
@@ -31,8 +34,7 @@ void loop() {
     case ROBOT_DRIVING:
       //uncomment this line to check whether the speed controller is operational on your robot
       PIcontroller.Process(50,50);
-      irSensor.PrintData();
-
+      sharpIR.PrintData();
       //uncomment this line of code, once you are done with assignments 1 and 2 to demonstrate that your robot
       //is capable of following a wall autonomously.
       //int speed = PDcontroller.Start(30); //distance in [cm]
