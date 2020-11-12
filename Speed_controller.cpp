@@ -24,9 +24,10 @@ void SpeedController::Process(float target_velocity_left, float target_velocity_
 
         motors.setEfforts(u_left,u_right);
         
-        Serial.print(MagneticEncoder.ReadVelocityLeft());
+        /*Serial.print(MagneticEncoder.ReadVelocityLeft());
         Serial.print('\t');
         Serial.println(MagneticEncoder.ReadVelocityRight());
+        */
     }
 } 
 
