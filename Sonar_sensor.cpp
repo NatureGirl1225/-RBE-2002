@@ -1,7 +1,7 @@
 #include <Romi32U4.h>
 #include "Sonar_sensor.h"
 
-SonarSensor ultrasonic;
+
 void SonarSensor::Init(void)
 {
     pinMode(pin_TRIG,OUTPUT);
@@ -22,6 +22,4 @@ float SonarSensor::ReadData(void)
         digitalWrite(pin_TRIG, LOW);
         float duration = pulseIn(pin_ECHO, HIGH);
         return duration;
-    
-    return 0;
 } 

@@ -17,7 +17,7 @@ SpeedController PIcontroller;
 WallFollowingController PDcontroller;
 IRsensor sharpIR;
 
-//SonarSensor ultrasonic;
+SonarSensor ultrasonic;
 
 void setup() {
   PIcontroller.Init();
