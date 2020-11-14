@@ -34,11 +34,11 @@ void loop() {
     case ROBOT_DRIVING:
       //uncomment this line to check whether the speed controller is operational on your robot
       //PIcontroller.Process(50,50);
-      sharpIR.PrintData();
+      //sharpIR.PrintData();
       //uncomment this line of code, once you are done with assignments 1 and 2 to demonstrate that your robot
       //is capable of following a wall autonomously.
-      //int speed = PDcontroller.Start(30); //distance in [cm]
-      //PIcontroller.Start(50+speed,50-speed); //speed in [[mm/s]]
+      int speed = PDcontroller.Process(30); //distance in [cm]
+      PIcontroller.Process(50+speed,50-speed); //speed in [[mm/s]]
 
       if(buttonA.getSingleDebouncedRelease()) 
       {
