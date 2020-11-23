@@ -3,11 +3,12 @@
 #include "Median_filter.h"
 #include "IMU.h"
 #include "Speed_controller.h"
+#include "Encoders.h"
 
 //sensors
 IMU_sensor LSM6;
 Romi32U4ButtonA buttonA;
-
+Encoder encoder;
 //median filter
 MedianFilter med_x;
 MedianFilter med_y;
@@ -60,8 +61,53 @@ void Behaviors::Run(void)
             PIcontroller.Stop(); //action 
         }   
         break;
-        
         //assignment 3
+    case DRIVE:
+       if(buttonA.getSingleDebouncedRelease()){ //transition condition
+            robot_state = IDLE;
+            PIcontroller.Stop();
+       }
+        else if(DetectCollision()){
+            robot_state = REVERSE;
+            PIcontroller.Stop();
+        }
+        else if(DetectBeingPickedUp()){
+            robot_state = IDLE;
+            PIcontroller.Stop();
+        }
+        else {
+            robot_state = DRIVE;
+            PIcontroller.Run(50,50);
+        }
+        break;
+    case REVERSE:
+        if(buttonA.getSingleDebouncedRelease()){
+            robot_state = IDLE;
+            PIcontroller.Stop();
+        }
+        else if(millis()>500){
+            robot_state = REVERSE;
+            PIcontroller.Reverse(100, 15);
+        }
+        else{
+            robot_state = TURN;
+            PIcontroller.Stop();
+        } 
+        break;
+    case TURN:
+        if(buttonA.getSingleDebouncedRelease()){
+            robot_state = IDLE;
+            PIcontroller.Stop();
+        }
+        else if(encoder.UpdateEncoderCounts()){
+            robot_state = DRIVE;
+            PIcontroller.Stop();
+        }
+        else{
+            robot_state = TURN;
+            PIcontroller.Turn(90, true);
+        }
+        break;
     }
     Serial.println(robot_state);
 }
