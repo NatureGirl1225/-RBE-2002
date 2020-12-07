@@ -7,6 +7,7 @@
 Behaviors collisionBehavior;
 SpeedController controller;
 IMU_sensor sensor;
+Romi32U4ButtonA button;
 
 void setup() {
   //collisionBehavior.Init();
@@ -14,6 +15,9 @@ void setup() {
 
 void loop() {
   //collisionBehavior.Run();
-  //controller.Turn(90, true);
+  /*if (button.getSingleDebouncedPress()){
+  controller.Turn(90, true);
+  }*/
   sensor.PrintAcceleration();
+  //sensor.PrintAcceleration();
 }

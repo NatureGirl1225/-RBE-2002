@@ -105,7 +105,7 @@ void Behaviors::Run(void)
         }
         else{
             robot_state = TURN;
-            PIcontroller.Turn(90, true);
+            PIcontroller.Turn(90, "r");
         }
         break;
     }

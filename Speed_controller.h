@@ -9,12 +9,14 @@ class SpeedController{
         const float Ki = 0.1; 
         float E_left = 0; 
         float E_right = 0;
-        int counts = 8; //assignment 1: convert degrees into counts
+        int counts = 1440; //assignment 1: convert degrees into counts
+        int chassis_radius = 70;
+        int wheel_radius = 35;
 
     public:
         void Init(void);
         void Run(float, float); //degrees and direction: 0->left, 1->right
-        boolean Turn(int,int);
+        boolean Turn(int,bool);
         boolean Reverse(int, int);
         void Stop(void);
 };

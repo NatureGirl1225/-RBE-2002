@@ -26,19 +26,30 @@ void SpeedController::Run(float target_velocity_left, float target_velocity_righ
     }
 }
 
-boolean SpeedController::Turn(int degree, int direction)
+boolean SpeedController::Turn(int degree, bool direction)
 {
     motors.setEfforts(0, 0);
-    int turns = counts*(degree); //assignment 1: convert degree into counts
+    float turns = degree*8; //assignment 1: convert degree into counts
     Serial.println(turns);
     int count_turn = MagneticEncoder.ReadEncoderCountLeft();
-
+    /*if (direction == "r" || direction == "R"){
+        
+    }
+    else if (direction == "l" || direction == "L"){
+        while ((MagneticEncoder.ReadEncoderCountLeft()+ count_turn)>= -turns){
+            Run(-50,50);
+        }
+    }
+    else{
+        motors.setEfforts(0,0);
+    }*/
     while(abs(abs(count_turn) - abs(MagneticEncoder.ReadEncoderCountLeft())) <= turns)
     {
         if(!direction) Run(50,-50);
         else Run(-50,50);
     }
     motors.setEfforts(0, 0);
+    
     return 1;
 }
 
