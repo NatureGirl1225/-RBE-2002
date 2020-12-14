@@ -11,6 +11,7 @@ class Position{
         const float l = 0.142875; //assignment
         float ICC, w, v; //w is omega I'm sorry
         float ICC_theoretical, w_theoretical, v_theoretical;
+        float v_straight, v_straight_theoretical;
         
         
     public:

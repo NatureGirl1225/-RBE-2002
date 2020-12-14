@@ -40,9 +40,9 @@ void Behaviors::Run(void)
         robot_state = DRIVE;
         //assignment
         robot.Straight(25,10); //velocity, duration
-        /*robot.Turn(180,0); //degrees, direction
-        robot.Curved(25,75,10); //velocity left, velocity right, duration
-        */
+        //robot.Turn(180,0); //degrees, direction
+        //robot.Curved(20,50,30); //velocity left, velocity right, duration
+        
         robot.Stop(); 
         robot_state = IDLE;
         break;
